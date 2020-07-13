@@ -7,6 +7,7 @@ This setup is not meant to be used in production.
 ## Requirements
 
 * [Pulumi](https://www.pulumi.com/docs/get-started/install/)
+* [Node.js](https://nodejs.org/en/download/)
 * a GCP account
 
 ## Usage
