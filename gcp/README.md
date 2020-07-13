@@ -12,6 +12,13 @@ This setup is not meant to be used in production.
 
 ## Usage
 
+Install all requirements and initialize the Pulumi stack:
+
+```shell
+npm install
+pulumi stack init
+```
+
 Set the required configuration parameters:
 
 ```shell
@@ -28,6 +35,5 @@ There are some other optional configurations, see [config.ts](./config.ts) for f
 Then provision the infrastructure with Pulumi:
 
 ```shell
-npm install
 pulumi up
 ```
