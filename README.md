@@ -2,7 +2,9 @@
 
 Provision infrastructure with all [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) requirements already properly configured and installed to easily install Kubernetes clusters using kubeadm.
 
-Kubeadm is a tool built to provide **kubeadm init** and **kubeadm join** as best-practice “fast paths” for creating Kubernetes clusters. By design, it cares only about bootstrapping, not about provisioning machines. The **kubeadm-infra** project cares about provisioning machines.
+Kubeadm is a tool built to provide **kubeadm init** and **kubeadm join** as best-practice “fast paths” for creating Kubernetes clusters. By design, it cares only about bootstrapping, not about provisioning machines.
+
+The **kubeadm-infra** project cares about provisioning machines.
 
 ## Getting Started
 
