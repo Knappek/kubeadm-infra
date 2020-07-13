@@ -38,4 +38,4 @@ Then provision the infrastructure with Pulumi:
 pulumi up
 ```
 
-Afterwards you can create a [HA Kubernetes cluster using kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/).
+Afterwards you can create a [HA Kubernetes clusters using kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/).
