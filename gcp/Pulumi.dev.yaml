@@ -1,0 +1,10 @@
+config:
+  gcp:project: acn-container-platforms
+  gcp:region: us-central1
+  gcp:zone: us-central1-a
+  kubeadm-infra:masterCount: "1"
+  kubeadm-infra:nodeCount: "1"
+  kubeadm-infra:prefix: andy-kubeadm
+  kubeadm-infra:sshPublicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+J1R76NDpT1wMIOSRws3PqSwa+gGbLN7VKQAuhdPG/TCADQNfwBnNqkUdot7P8buBZSSGZFMksVPyDxbRkoeDpm1Nu0WWSn0XAtlbbzVhr1FRQMpuUvVFjjY2g6hJrfCvNF09RrsQvalH3KbF+4vbtkWytTLfNv6s2SuY8Geii5WZZOphE2ub/ML6jrZctDrmRwlpMtzWXPuiQswifIJeP6/l7oKxEhCMEbP2+P7R2qNRwvNjmQO+GUj95oFk8milXKNMRs9N4OhvhLoI9BV4r3+V5kHSxEwKPqEpOBVxb9C83uD9F3k7r9BbY5z1Bf041i+KZQ059nDNZgmMeLiq+PM5Hp6tSZP0LaYpEcKF3cHRZIgxNZGtWiJadzydwmzKA/SkbEyrsOE1rgwhwn3AnaQruomlU/18hsZ5YCxw+1u/NHSldgyIESf1KDpcLgZjXf3cnyCUNYRBzn8pqSKdh4cPRaEgSjV2KAhQwVtbe5eLomjyDBAERaQ9DTXJ+38t38bVvTil618xI2IjQEqd/d4GRJvdTTONQuUqXzIWjvFEvVGtAV92SuwB2CcnFYpV2Asg+PpRt1oI+GJejiCasDltxipLE0nTDSz++a7gBpzLi/1GrihtWQdx2DDJgCCij7VSNTRFv/zdAqTl+pKmWZITcif4BrGTRyixTPVd8Q==
+    andreas.knapp@accenture.com
+  kubeadm-infra:sshUsername: aknapp

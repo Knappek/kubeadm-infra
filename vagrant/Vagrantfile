@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    vb.gui = true
+
+    # Customize the amount of memory on the VM:
+    vb.memory = "2048"
+    vb.cpus = "2"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    yum update -y
+    yum install docker vim -y
+    systemctl start docker && systemctl enable docker.service
+    groupadd docker -f && usermod -aG docker vagrant && chown root:docker /var/run/docker.sock
+
+    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
+EOF
+  # Set SELinux in permissive mode (effectively disabling it)
+  setenforce 0
+  sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes # latest stable version
+  #yum install -y kubelet-1.17.0 kubeadm-1.17.0 kubectl-1.17.0 --disableexcludes=kubernetes # version 1.17.0, good if you want to upgrade your cluster with kubeadm
+  systemctl enable --now kubelet
+  swapoff -a
+  cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+  sysctl --system
+  kubeadm config images pull
+  SHELL
+end
