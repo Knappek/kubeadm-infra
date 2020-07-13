@@ -27,5 +27,6 @@ There are some other optional configurations, see [config.ts](./config.ts) for f
 Then provision the infrastructure with Pulumi:
 
 ```shell
+npm install
 pulumi up
 ```
