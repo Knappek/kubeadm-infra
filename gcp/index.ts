@@ -82,7 +82,8 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 sudo kubeadm config images pull
 
-
+# install etcdctl
+sudo apt install etcd-client -y
 
 cat <<EOF | sudo tee /etc/kubernetes/cloud-config
 [Global]
