@@ -7,6 +7,13 @@ This vagrant setup provisions a Virtual Machine in VirtualBox that can be used t
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](https://www.vagrantup.com/docs/installation)
 
+## Setup
+
+This setup includes:
+
+* 1 Node that can be used for both master and worker components
+* Docker as CRI
+
 ## Usage
 
 ```shell

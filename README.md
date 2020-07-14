@@ -13,8 +13,12 @@ Currently it supports provisioning machines/infrastructure on:
 * [Vagrant](./vagrant)
 * [GCP](./gcp)
 
-Check out the corresponding README files.
+Check out the corresponding README.
 
 ## Contributing
+
+I started with this project to prepare for my upcoming CKA exam in order to practice setting up HA clusters with kubeadm, cluster troubleshooting etc. The infrastructure might not follow best practices and, thus, it is not recommended to use in production.
+
+But this could be changed in theory ;).
 
 Open issues and send PRs :).

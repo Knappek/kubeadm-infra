@@ -10,6 +10,17 @@ This setup is not meant to be used in production.
 * [Node.js](https://nodejs.org/en/download/)
 * a GCP account
 
+## Setup
+
+This setup includes:
+
+* 1 VPC with 1 Subnet
+* 1 Load Balancer for Kubernetes API Servers
+* Some required firewall rules
+* 1-x Controller Nodes
+* 1-x Worker Nodes
+* Docker as CRI
+
 ## Usage
 
 Install all requirements and initialize the Pulumi stack:
