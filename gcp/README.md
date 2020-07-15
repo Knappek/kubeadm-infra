@@ -50,3 +50,9 @@ pulumi up
 ```
 
 Afterwards you can create a [HA Kubernetes clusters using kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/).
+
+## Cleanup
+
+```shell
+pulumi destroy
+```

@@ -19,3 +19,15 @@ This setup includes:
 ```shell
 vagrant up
 ```
+
+Then you can ssh into the VM with
+
+```shell
+vagrant ssh
+```
+
+## Cleanup
+
+```shell
+vagrant destroy
+```
