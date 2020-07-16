@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     yum update -y
-    yum install docker vim -y
+    yum install docker vim etcd -y
     systemctl start docker && systemctl enable docker.service
     groupadd docker -f && usermod -aG docker vagrant && chown root:docker /var/run/docker.sock
 
