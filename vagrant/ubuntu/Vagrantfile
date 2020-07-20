@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "generic/ubuntu1804"
+  
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    vb.gui = true
+
+    # Customize the amount of memory on the VM:
+    vb.memory = "2048"
+    vb.cpus = "2"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    # Setup required sysctl params, these persist across reboots.
+    cat <<EOF | tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+    sysctl --system
+    
+    # install docker
+    apt-get update
+    apt-get install docker.io -y
+    systemctl start docker && systemctl enable docker.service
+    groupadd docker -f && usermod -aG docker vagrant && chown root:docker /var/run/docker.sock
+    
+    # install kubelet, kubectl and kubeadm
+    apt-get install -y apt-transport-https curl
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    cat <<EOF | tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+    apt-get update
+    apt-get install -y kubelet kubeadm kubectl
+    apt-mark hold kubelet kubeadm kubectl
+    
+    systemctl daemon-reload
+    systemctl restart kubelet
+    kubeadm config images pull
+
+    apt-get install etcd-client -y
+
+    # disable swap
+    swapoff -a
+  SHELL
+end
