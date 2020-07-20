@@ -151,13 +151,20 @@ for (let i = 0; i < masterCount; i++) {
         ]
     }))
 }
+
 let targetPoolInstances: pulumi.Output<string>[] = []
-masterInstances.forEach(instance=>targetPoolInstances.push(instance.selfLink))
+masterInstances.forEach(instance => targetPoolInstances.push(instance.selfLink))
 const kubernetesTargetPool = new gcp.compute.TargetPool(`${prefix}-k8s-target-pool`, {
     healthChecks: kubernetesHttpHealthCheck.name,
-    instances: targetPoolInstances,
+    // we can't add all instances to the target-pools at first. 
+    // Otherwise you may encounter connectivity issues while issuing command of sudo kubeadm join in all other Controller nodes other than the first one.
+    // Hence, this has to be done manually afterwards
+    instances: [targetPoolInstances[0]],
     region: gcp.config.region,
 });
+export let targetPoolName = kubernetesTargetPool.name
+export let controlPlaneNodeNames: pulumi.Output<string>[] = []
+masterInstances.forEach(instance => controlPlaneNodeNames.push(instance.name))
 
 const kubernetesForwardingRule = new gcp.compute.ForwardingRule(`${prefix}-forwarding-rule`, {
     target: kubernetesTargetPool.id,
@@ -173,7 +180,7 @@ for (var i = 0; i < nodeCount; i++) {
         bootDisk: {
             initializeParams: {
                 image: "ubuntu-os-cloud/ubuntu-1804-lts",
-                size: 20, 
+                size: 20,
             },
         },
         canIpForward: true,
@@ -205,3 +212,15 @@ for (var i = 0; i < nodeCount; i++) {
         ]
     })
 }
+
+
+// Output for the user
+console.log(`
+    1.  get all instances with
+            gcloud compute instances list
+    2.  run 'kubeadm init' command after ssh'ing to first controller node: 
+            ssh ${sshUsername}@<ip_first_controller_node>
+    3.  After you've joined the other (not the first) control plane nodes to the cluster, you need to add them to the Load Balancer target-pool manually:
+        Use the remaining control plane node names and add them to the target-pool:
+            gcloud compute target-pools add-instances <target pool name> --instances-zone ${gcp.config.region} --instances <comma separated list of remaining control plane node names>
+`)
