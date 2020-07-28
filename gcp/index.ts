@@ -222,5 +222,5 @@ console.log(`
             ssh ${sshUsername}@<ip_first_controller_node>
     3.  After you've joined the other (not the first) control plane nodes to the cluster, you need to add them to the Load Balancer target-pool manually:
         Use the remaining control plane node names and add them to the target-pool:
-            gcloud compute target-pools add-instances <target pool name> --instances-zone ${gcp.config.region} --instances <comma separated list of remaining control plane node names>
+            gcloud compute target-pools add-instances <target pool name> --instances-zone ${gcp.config.zone} --instances <comma separated list of remaining control plane node names>
 `)
