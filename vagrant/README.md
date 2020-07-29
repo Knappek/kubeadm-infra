@@ -16,14 +16,34 @@ This setup includes:
 
 ## Usage
 
+Change your directory to [ubuntu](./ubuntu) or [centos7](./centos7). Then execute:
+
 ```shell
 vagrant up
 ```
 
-Then you can ssh into the VM with
+You can ssh into the VM with
 
 ```shell
 vagrant ssh
+```
+
+### Do not use latest Kubernetess version
+
+Sometimes you don't want to install the latest kubernetes version that is available for kubeadm, because you might want to practice upgrading a cluster using kubeadm.
+
+Install Kubernetes version `1.17.0` with:
+
+```shell
+K8S_VERSION=1.17 vagrant up
+```
+
+### Do not install the kubeadm requirements
+
+Sometimes you don't want to have all requirements already configured in order to use kubeadm, because you might want to practice it:
+
+```shell
+PROVISION_INFRA=false vagrant up
 ```
 
 ## Cleanup
